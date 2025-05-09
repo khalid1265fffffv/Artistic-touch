@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول | لمسه فنيه</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="لقطة_الشاشة_2025-03-22_013147-removebg-preview.png">
+</head>
+<body>
+  <header>
+    <img src="لقطة_الشاشة_2025-03-22_013147-removebg-preview.png" alt="شعار لمسه فنيه" class="logo">
+    <nav>
+      <a href="index.html">الرئيسية</a>
+      <a href="login.html">تسجيل الدخول</a>
+      <a href="register.html">إنشاء حساب</a>
+      <a href="order.html">طلب خدمة</a>
+    </nav>
+  </header>
+  <main>
+    <section class="intro">
+      <h2>تسجيل الدخول</h2>
+      <form id="loginForm" class="form-styled">
+        <label for="loginUsername">اسم المستخدم أو البريد الإلكتروني</label>
+        <input type="text" id="loginUsername" placeholder="اسم المستخدم أو البريد الإلكتروني" required><br>
+        <label for="loginPassword">كلمة المرور</label>
+        <input type="password" id="loginPassword" placeholder="كلمة المرور" required><br>
+        <button type="submit" class="btn-main">دخول</button>
+      </form>
+      <p>ليس لديك حساب؟ <a href="register.html">إنشاء حساب جديد</a></p>
+      <div id="loginMsg" class="msg"></div>
+    </section>
+  </main>
+  <footer>
+    جميع الحقوق محفوظة &copy; لمسه فنيه 2024
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html> 

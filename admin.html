@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إدارة الطلبات | لمسه فنيه</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="لقطة_الشاشة_2025-03-22_013147-removebg-preview.png">
+</head>
+<body>
+  <header>
+    <img src="لقطة_الشاشة_2025-03-22_013147-removebg-preview.png" alt="شعار لمسه فنيه" class="logo">
+    <nav>
+      <a href="index.html">الرئيسية</a>
+      <a href="#" id="logoutBtn">تسجيل الخروج</a>
+    </nav>
+  </header>
+  <main>
+    <section class="intro">
+      <h2>إدارة الطلبات</h2>
+      <div id="adminLoginSection">
+        <form id="adminLoginForm">
+          <input type="text" id="adminUsername" placeholder="اسم المستخدم" required><br>
+          <input type="password" id="adminPassword" placeholder="كلمة السر الخاصة" required><br>
+          <button type="submit">دخول المدير</button>
+        </form>
+        <div id="adminLoginMsg" style="color:red;"></div>
+      </div>
+      <div id="adminOrdersSection" style="display:none;">
+        <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center;">
+          <div style="flex:1; min-width:320px; max-width:500px;">
+            <h3>جميع الطلبات</h3>
+            <ul id="allOrders"></ul>
+          </div>
+          <div style="flex:1; min-width:320px; max-width:400px;">
+            <h3>الحسابات المسجلة</h3>
+            <ul id="allUsers"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    جميع الحقوق محفوظة &copy; لمسه فنيه 2024
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html> 

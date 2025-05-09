@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لمسه فنيه | الرئيسية</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="لقطة_الشاشة_2025-03-22_013147-removebg-preview.png">
+</head>
+<body>
+  <header>
+    <img src="لقطة_الشاشة_2025-03-22_013147-removebg-preview.png" alt="شعار لمسه فنيه" class="logo">
+    <nav>
+      <a href="index.html">الرئيسية</a>
+      <a href="login.html">تسجيل الدخول</a>
+      <a href="register.html">إنشاء حساب</a>
+      <a href="order.html">طلب خدمة</a>
+    </nav>
+  </header>
+  <main>
+    <section class="intro">
+      <h1>شركة لمسه فنيه</h1>
+      <p>نحن شركة متخصصة في التصميم والبرمجة، نقدم حلولاً مبتكرة وعصرية لعملائنا الكرام.</p>
+      <ul id="homeServicesList">
+        <li><a href="order.html?service=تصميم مواقع وتطبيقات" class="service-link">تصميم مواقع وتطبيقات</a></li>
+        <li><a href="order.html?service=برمجة حلول مخصصة" class="service-link">برمجة حلول مخصصة</a></li>
+        <li><a href="order.html?service=استشارات تقنية" class="service-link">استشارات تقنية</a></li>
+      </ul>
+      <div id="myOrdersSection" style="display:none; margin-top:32px;">
+        <h3>طلباتي</h3>
+        <ul id="myOrdersHome"></ul>
+      </div>
+    </section>
+  </main>
+  <footer>
+    جميع الحقوق محفوظة &copy; لمسه فنيه 2024
+  </footer>
+  <script>
+    // عرض الخدمات المنشورة تلقائياً
+    function renderHomeServices() {
+      const list = document.getElementById('homeServicesList');
+      let services = [];
+      try {
+        services = JSON.parse(localStorage.getItem('publishedHomeServices'));
+      } catch(e) {}
+      if(Array.isArray(services) && services.length > 0) {
+        list.innerHTML = services.map(s => `<li><a href="order.html?service=${encodeURIComponent(s)}" class="service-link">${s}</a></li>`).join('');
+      }
+    }
+    renderHomeServices();
+    // عرض طلبات المستخدم إذا كان مسجلاً الدخول
+    function renderMyOrdersHome() {
+      const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
+      if (user) {
+        document.getElementById('myOrdersSection').style.display = 'block';
+        let orders = [];
+        try {
+          orders = JSON.parse(localStorage.getItem('orders')) || [];
+        } catch(e) {}
+        orders = orders.filter(o => o.username === user.username);
+        const list = document.getElementById('myOrdersHome');
+        if (orders.length === 0) {
+          list.innerHTML = '<li>لا توجد طلبات بعد.</li>';
+        } else {
+          list.innerHTML = orders.map(o => `<li><b>${o.serviceName}</b> - ${o.serviceDetails}<br>الدولة: ${o.serviceCountry || '-'}<br>رقم الجوال: ${o.servicePhone}<br>بتاريخ: ${o.date}</li>`).join('');
+        }
+      }
+    }
+    renderMyOrdersHome();
+  </script>
+</body>
+</html> 

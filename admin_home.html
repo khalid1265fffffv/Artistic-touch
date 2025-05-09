@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إدارة الصفحة الرئيسية | لمسه فنيه</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="لقطة_الشاشة_2025-03-22_013147-removebg-preview.png">
+</head>
+<body>
+  <header>
+    <img src="لقطة_الشاشة_2025-03-22_013147-removebg-preview.png" alt="شعار لمسه فنيه" class="logo">
+    <nav>
+      <a href="index.html">الرئيسية</a>
+      <a href="#" id="logoutBtn" style="display:none;">تسجيل الخروج</a>
+    </nav>
+  </header>
+  <main>
+    <section class="intro">
+      <div id="adminHomeLoginSection">
+        <h2>تسجيل الدخول للوحة إدارة الصفحة الرئيسية</h2>
+        <form id="adminHomeLoginForm" class="form-styled">
+          <label for="adminHomeEmail">البريد الإلكتروني</label>
+          <input type="email" id="adminHomeEmail" required placeholder="البريد الإلكتروني">
+          <label for="adminHomePassword">كلمة المرور</label>
+          <input type="password" id="adminHomePassword" required placeholder="كلمة المرور">
+          <button type="submit" class="btn-main">دخول</button>
+        </form>
+        <div id="adminHomeLoginMsg" class="msg"></div>
+      </div>
+      <div id="adminHomeContentSection" style="display:none;">
+        <h2>إدارة الخدمات في الصفحة الرئيسية</h2>
+        <form id="addServiceForm" class="form-styled" style="margin-bottom:24px;">
+          <label for="newService">إضافة خدمة جديدة</label>
+          <input type="text" id="newService" placeholder="اسم الخدمة الجديدة">
+          <button type="submit" class="btn-main">إضافة</button>
+        </form>
+        <ul id="servicesList"></ul>
+        <button id="publishBtn" class="btn-main" style="margin-top:18px;">نشر التعديلات</button>
+        <div id="publishMsg" class="msg"></div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    جميع الحقوق محفوظة &copy; لمسه فنيه 2024
+  </footer>
+  <script>
+    // بيانات الدخول
+    const ADMIN_EMAIL = 'kkhhaalliidd@gmail.com';
+    const ADMIN_PASS = 'khalid123kh';
+    // تسجيل الدخول
+    document.getElementById('adminHomeLoginForm').onsubmit = function(e) {
+      e.preventDefault();
+      const email = document.getElementById('adminHomeEmail').value.trim();
+      const pass = document.getElementById('adminHomePassword').value;
+      const msg = document.getElementById('adminHomeLoginMsg');
+      if(email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+        document.getElementById('adminHomeLoginSection').style.display = 'none';
+        document.getElementById('adminHomeContentSection').style.display = 'block';
+        document.getElementById('logoutBtn').style.display = 'inline-block';
+        loadServices();
+      } else {
+        msg.textContent = 'بيانات الدخول غير صحيحة';
+      }
+    };
+    // تسجيل الخروج
+    document.getElementById('logoutBtn').onclick = function(e) {
+      e.preventDefault();
+      document.getElementById('adminHomeLoginSection').style.display = 'block';
+      document.getElementById('adminHomeContentSection').style.display = 'none';
+      document.getElementById('logoutBtn').style.display = 'none';
+      document.getElementById('adminHomeLoginForm').reset();
+    };
+    // إدارة الخدمات
+    function getHomeServices() {
+      return JSON.parse(localStorage.getItem('homeServices') || '["تصميم مواقع وتطبيقات","برمجة حلول مخصصة","استشارات تقنية"]');
+    }
+    function setHomeServices(arr) {
+      localStorage.setItem('homeServices', JSON.stringify(arr));
+    }
+    function loadServices() {
+      const list = document.getElementById('servicesList');
+      const services = getHomeServices();
+      if(services.length === 0) {
+        list.innerHTML = '<li>لا توجد خدمات بعد.</li>';
+      } else {
+        list.innerHTML = services.map((s, i) => `
+          <li style="margin-bottom:12px;">
+            <a href="order.html?service=${encodeURIComponent(s)}" class="service-link">${s}</a>
+            <button onclick="editService(${i})" style="margin-right:8px;">تعديل</button>
+            <button onclick="deleteService(${i})" style="color:red;">حذف</button>
+          </li>
+        `).join('');
+      }
+    }
+    // إضافة خدمة
+    document.getElementById('addServiceForm').onsubmit = function(e) {
+      e.preventDefault();
+      const val = document.getElementById('newService').value.trim();
+      if(val) {
+        let arr = getHomeServices();
+        arr.push(val);
+        setHomeServices(arr);
+        document.getElementById('newService').value = '';
+        loadServices();
+      }
+    };
+    // تعديل خدمة
+    window.editService = function(idx) {
+      const services = getHomeServices();
+      const newVal = prompt('تعديل اسم الخدمة:', services[idx]);
+      if(newVal && newVal.trim()) {
+        services[idx] = newVal.trim();
+        setHomeServices(services);
+        loadServices();
+      }
+    };
+    // حذف خدمة
+    window.deleteService = function(idx) {
+      let arr = getHomeServices();
+      if(confirm('هل أنت متأكد من حذف هذه الخدمة؟')) {
+        arr.splice(idx, 1);
+        setHomeServices(arr);
+        loadServices();
+      }
+    };
+    // زر النشر
+    document.getElementById('publishBtn').onclick = function() {
+      const services = getHomeServices();
+      localStorage.setItem('publishedHomeServices', JSON.stringify(services));
+      document.getElementById('publishMsg').textContent = 'تم نشر التعديلات بنجاح!';
+      setTimeout(()=>{document.getElementById('publishMsg').textContent='';}, 2000);
+    };
+  </script>
+</body>
+</html> 

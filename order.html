@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>طلب خدمة | لمسه فنيه</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="لقطة_الشاشة_2025-03-22_013147-removebg-preview.png">
+</head>
+<body>
+  <script>
+    if (!localStorage.getItem('currentUser')) {
+      window.location.href = 'login.html';
+    }
+    // تعبئة اسم الخدمة تلقائياً إذا تم تمريرها في الرابط وجعلها غير قابلة للتعديل
+    const params = new URLSearchParams(window.location.search);
+    const service = params.get('service');
+    const serviceNameInput = document.getElementById('serviceName');
+    if (service && serviceNameInput) {
+      serviceNameInput.value = service;
+      serviceNameInput.readOnly = true;
+    }
+  </script>
+  <header>
+    <img src="لقطة_الشاشة_2025-03-22_013147-removebg-preview.png" alt="شعار لمسه فنيه" class="logo">
+    <nav>
+      <a href="index.html">الرئيسية</a>
+      <a href="login.html">تسجيل الدخول</a>
+      <a href="register.html">إنشاء حساب</a>
+      <a href="order.html">طلب خدمة</a>
+    </nav>
+  </header>
+  <main>
+    <section class="intro">
+      <h2>طلب خدمة</h2>
+      <form id="orderForm" class="form-styled">
+        <label for="serviceName">اسم الخدمة المطلوبة</label>
+        <input type="text" id="serviceName" placeholder="اسم الخدمة المطلوبة" required><br>
+        <label for="serviceDetails">تفاصيل الطلب</label>
+        <textarea id="serviceDetails" placeholder="تفاصيل الطلب" required></textarea><br>
+        <label for="servicePhone">الدولة</label>
+        <select id="serviceCountry" required>
+          <option value="">اختر الدولة</option>
+          <option value="السعودية">السعودية</option>
+          <option value="مصر">مصر</option>
+          <option value="الإمارات">الإمارات</option>
+          <option value="الكويت">الكويت</option>
+          <option value="قطر">قطر</option>
+          <option value="البحرين">البحرين</option>
+          <option value="عمان">عمان</option>
+          <option value="اليمن">اليمن</option>
+          <option value="الأردن">الأردن</option>
+          <option value="المغرب">المغرب</option>
+          <option value="تونس">تونس</option>
+          <option value="الجزائر">الجزائر</option>
+          <option value="فلسطين">فلسطين</option>
+          <option value="سوريا">سوريا</option>
+          <option value="العراق">العراق</option>
+          <option value="ليبيا">ليبيا</option>
+          <option value="السودان">السودان</option>
+          <option value="دولة أخرى">دولة أخرى</option>
+        </select><br>
+        <label for="servicePhone">رقم الجوال</label>
+        <input type="text" id="servicePhone" placeholder="رقم الجوال" required><br>
+        <button type="submit" class="btn-main">إرسال الطلب</button>
+      </form>
+      <div id="orderMsg" class="msg" style="color:green;"></div>
+      <div id="orderLoginMsg" class="msg" style="color:red;"></div>
+    </section>
+  </main>
+  <footer>
+    جميع الحقوق محفوظة &copy; لمسه فنيه 2024
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html> 
